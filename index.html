@@ -1,0 +1,616 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GRADUACIÓN | ACTUARÍA 2026</title>
+    
+    <!-- Tipografía Inter para textos generales -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            /* Paleta Conceptual: Negro, Plateado y Blanco/Ivory Frío */
+            --act-ivory-cold: #E8ECEF; /* Tono Ivory Frío para títulos */
+            --act-silver: #A9B4C2; /* Tono plateado elegante */
+            --text-light: #F4F4F4; 
+            --bg-dark: #050505;
+            
+            /* Cristal oscuro para fondos */
+            --glass-bg: rgba(5, 5, 5, 0.65); 
+            --glass-border: rgba(169, 180, 194, 0.2); /* Borde plateado sutil */
+            --transition-smooth: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        /* --- ARQUITECTURA BASE --- */
+        * { 
+            margin: 0; 
+            padding: 0; 
+            box-sizing: border-box; 
+        }
+        
+        body { 
+            font-family: 'Inter', sans-serif;
+            color: var(--text-light);
+            line-height: 1.8; 
+            overflow-x: hidden;
+            background-color: var(--bg-dark);
+        }
+
+        /* --- FONDO DE IMAGEN (3.png) --- */
+        .bg-image {
+            position: fixed;
+            top: 0; 
+            left: 0; 
+            width: 100%; 
+            height: 100%;
+            background-image: url('3.png');
+            background-size: cover;
+            background-position: center;
+            z-index: -4;
+        }
+
+        /* Capa de oscurecimiento suave para resaltar tipografía y elementos plateados */
+        .overlay {
+            position: fixed;
+            top: 0; 
+            left: 0; 
+            width: 100%; 
+            height: 100%;
+            background: linear-gradient(135deg, rgba(5,5,5,0.85) 0%, rgba(5,5,5,0.5) 50%, rgba(5,5,5,0.9) 100%);
+            z-index: -3;
+            pointer-events: none;
+        }
+
+        /* --- TIPOGRAFÍA AMSTELVAR ALPHA PARA TÍTULOS --- */
+        @font-face {
+            font-family: 'AmstelvarAlpha';
+            src: local('AmstelvarAlpha'), local('Times New Roman'); 
+        }
+
+        h1, h2, h3, h4, .accent-title, .date-box, .time-content span, .dish span {
+            font-family: 'AmstelvarAlpha', 'Times New Roman', serif;
+            text-transform: uppercase;
+            letter-spacing: 4px;
+            font-weight: normal;
+            color: var(--act-ivory-cold);
+        }
+
+        /* --- DESTELLOS ESTILO DISCO (PLATAS Y BLANCOS) --- */
+        @keyframes floatUp {
+            0% { transform: translateY(0) scale(0.8); opacity: 0; }
+            20% { opacity: 0.5; }
+            80% { opacity: 0.3; }
+            100% { transform: translateY(-100vh) scale(1.2); opacity: 0; }
+        }
+
+        .disco-particles {
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            z-index: -2; 
+            pointer-events: none;
+            overflow: hidden;
+        }
+
+        .particle {
+            position: absolute;
+            bottom: -20px;
+            background-color: var(--act-silver);
+            border-radius: 50%;
+            box-shadow: 0 0 10px 2px rgba(169, 180, 194, 0.4), 0 0 20px 4px rgba(232, 236, 239, 0.2);
+            animation: floatUp linear infinite;
+        }
+
+        .p1 { left: 10%; width: 6px; height: 6px; animation-duration: 15s; animation-delay: 0s; }
+        .p2 { left: 25%; width: 10px; height: 10px; animation-duration: 18s; animation-delay: 2s; background-color: var(--act-ivory-cold);}
+        .p3 { left: 45%; width: 5px; height: 5px; animation-duration: 12s; animation-delay: 4s; }
+        .p4 { left: 70%; width: 12px; height: 12px; animation-duration: 20s; animation-delay: 1s; background-color: var(--act-ivory-cold);}
+        .p5 { left: 85%; width: 8px; height: 8px; animation-duration: 16s; animation-delay: 5s; }
+
+        /* --- ESTRUCTURA EDITORIAL FLOTANTE --- */
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 0 20px;
+            position: relative;
+            z-index: 10;
+        }
+
+        .reveal-node { 
+            opacity: 0; 
+            transform: translateY(30px);
+            animation: reveal 1.5s cubic-bezier(0.2, 0.8, 0.2, 1) forwards; 
+        }
+
+        @keyframes reveal {
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        section {
+            margin-bottom: 150px;
+            text-align: center;
+        }
+
+        .section-title {
+            font-size: 2.8rem;
+            margin-bottom: 60px;
+            letter-spacing: 5px;
+            text-shadow: 0 2px 15px rgba(232, 236, 239, 0.2);
+        }
+
+        /* --- PORTADA --- */
+        header {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+        }
+
+        header h1 { 
+            font-size: clamp(3rem, 12vw, 6.5rem); 
+            margin-bottom: 5px;
+            letter-spacing: 12px;
+            line-height: 1.1;
+        }
+
+        header p { 
+            font-size: 1.2rem; 
+            letter-spacing: 12px; 
+            color: var(--act-silver); 
+            font-weight: 300;
+            margin-top: 20px; 
+            font-family: 'Inter', sans-serif;
+            text-transform: uppercase;
+        }
+
+        .decorative-line {
+            width: 2px;
+            height: 100px;
+            background: var(--act-silver);
+            margin: 50px auto 0;
+        }
+
+        /* --- FECHA Y UBICACIÓN --- */
+        .date-box {
+            font-size: clamp(2.5rem, 8vw, 4rem);
+            letter-spacing: 8px;
+            margin-bottom: 80px;
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+        }
+
+        .date-box span {
+            border-bottom: 2px solid var(--act-silver);
+            padding-bottom: 5px;
+        }
+
+        .location-info {
+            margin-bottom: 50px;
+        }
+
+        .location-info h3 {
+            font-size: 2.2rem;
+            margin-bottom: 15px;
+        }
+
+        .location-info p {
+            font-size: 1.2rem;
+            color: var(--act-silver);
+            margin-bottom: 40px;
+            font-weight: 300;
+        }
+
+        .btn-silver {
+            display: inline-block;
+            padding: 18px 50px;
+            border: 1px solid var(--act-silver);
+            color: var(--act-ivory-cold);
+            text-decoration: none;
+            font-family: 'AmstelvarAlpha', serif;
+            letter-spacing: 3px;
+            font-size: 1.1rem;
+            border-radius: 50px;
+            transition: var(--transition-smooth);
+            background: var(--glass-bg);
+            backdrop-filter: blur(5px);
+        }
+
+        .btn-silver:hover {
+            background: var(--act-silver);
+            color: var(--bg-dark);
+            border-color: var(--act-ivory-cold);
+        }
+
+        /* --- ITINERARIO CENTRADO (LÍNEA VERTICAL) --- */
+        .timeline-grid {
+            position: relative;
+            max-width: 500px;
+            margin: 0 auto;
+            padding: 20px 0;
+            text-align: center;
+        }
+
+        .timeline-grid::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 1px;
+            background: rgba(169, 180, 194, 0.4);
+        }
+
+        .time-item {
+            position: relative;
+            margin-bottom: 60px;
+        }
+
+        .time-item:last-child {
+            margin-bottom: 0;
+        }
+
+        .time-node {
+            width: 12px;
+            height: 12px;
+            background: var(--act-ivory-cold);
+            border-radius: 50%;
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            box-shadow: 0 0 0 6px var(--bg-dark); 
+        }
+
+        .time-content {
+            padding-top: 35px; 
+        }
+
+        .time-content span {
+            display: block;
+            font-size: 1.4rem;
+            letter-spacing: 2px;
+            margin-bottom: 5px;
+        }
+
+        .time-content p {
+            color: var(--text-light);
+            font-weight: 300;
+            font-size: 1.1rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        /* --- MENÚ EDITORIAL LIBRE --- */
+        .menu-category {
+            margin-bottom: 80px;
+        }
+
+        .menu-category:last-child {
+            margin-bottom: 0;
+        }
+
+        .menu-category h4 {
+            font-size: 1.8rem;
+            margin-bottom: 40px;
+            letter-spacing: 4px;
+            position: relative;
+            display: inline-block;
+            color: var(--act-silver);
+        }
+
+        .menu-category h4::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 50%;
+            height: 1px;
+            background: var(--act-silver);
+            opacity: 0.5;
+        }
+
+        .dish {
+            margin-bottom: 35px;
+        }
+
+        .dish:last-child {
+            margin-bottom: 0;
+        }
+
+        .dish span {
+            display: block;
+            font-size: 1.2rem;
+            margin-bottom: 8px;
+        }
+
+        .dish p {
+            font-weight: 300;
+            color: var(--text-light);
+            font-size: 1.05rem;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* --- RECOMENDACIONES --- */
+        .recs-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 50px;
+        }
+
+        .rec-card {
+            text-align: center;
+        }
+
+        .rec-card h4 {
+            font-size: 1.2rem;
+            margin-bottom: 15px;
+        }
+
+        .rec-card p {
+            font-size: 0.95rem;
+            font-weight: 300;
+            color: var(--act-silver);
+        }
+
+        /* --- AUDIO --- */
+        #music-btn {
+            position: fixed; 
+            bottom: 30px; 
+            right: 30px; 
+            width: 60px; 
+            height: 60px;
+            border-radius: 50%; 
+            z-index: 5000; 
+            border: 1px solid var(--act-ivory-cold);
+            background: var(--glass-bg); 
+            cursor: pointer;
+            display: flex; 
+            align-items: center; 
+            justify-content: center; 
+            font-size: 1.5rem;
+            transition: var(--transition-smooth); 
+            color: var(--act-ivory-cold);
+            backdrop-filter: blur(5px);
+        }
+
+        #music-btn:hover { 
+            background: var(--act-ivory-cold);
+            color: var(--bg-dark);
+        }
+
+        footer { 
+            padding: 80px 20px; 
+            text-align: center; 
+            border-top: 1px solid var(--glass-border); 
+            margin-top: 50px;
+        }
+
+        @media (max-width: 768px) {
+            .date-box { font-size: 2rem; gap: 20px; }
+            section { margin-bottom: 100px; }
+            .section-title { font-size: 2.2rem; margin-bottom: 40px; }
+            .location-info h3 { font-size: 1.8rem; }
+            .menu-category h4 { font-size: 1.5rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- FONDO Y OVERLAY -->
+    <div class="bg-image"></div>
+    <div class="overlay"></div>
+
+    <!-- PARTICULAS / DESTELLOS PLATEADOS -->
+    <div class="disco-particles">
+        <div class="particle p1"></div>
+        <div class="particle p2"></div>
+        <div class="particle p3"></div>
+        <div class="particle p4"></div>
+        <div class="particle p5"></div>
+    </div>
+
+    <audio id="gradAudio" loop preload="auto" playsinline>
+        <source src="musica.mp3" type="audio/mpeg">
+    </audio>
+    <button id="music-btn" onclick="gestionarMusica()">🔇</button>
+
+    <div class="container">
+        
+        <header>
+            <div class="reveal-node">
+                <h1>ACTUARÍA</h1>
+                <p>GENERACIÓN 2026</p>
+                <div class="decorative-line"></div>
+            </div>
+        </header>
+
+        <main>
+            <section class="info-section">
+                <div class="date-box reveal-node">
+                    <span>18</span> <span>07</span> <span>26</span>
+                </div>
+
+                <div class="location-info reveal-node">
+                    <h3>RECEPCIÓN</h3>
+                    <p>Hacienda El Coecillo<br>Estado de México</p>
+                    <a href="https://maps.app.goo.gl/SRsryfGWXiWBjFKs5" target="_blank" class="btn-silver">Ver Ubicación</a>
+                </div>
+            </section>
+
+            <!-- ITINERARIO -->
+            <section class="timeline-section reveal-node">
+                <h2 class="section-title">Itinerario</h2>
+                <div class="timeline-grid">
+                    <div class="time-item">
+                        <div class="time-node"></div>
+                        <div class="time-content">
+                            <span>20:00 HRS</span>
+                            <p>Recepción</p>
+                        </div>
+                    </div>
+                    <div class="time-item">
+                        <div class="time-node"></div>
+                        <div class="time-content">
+                            <span>21:00 HRS</span>
+                            <p>Cena</p>
+                        </div>
+                    </div>
+                    <div class="time-item">
+                        <div class="time-node"></div>
+                        <div class="time-content">
+                            <span>22:10 HRS</span>
+                            <p>Brindis</p>
+                        </div>
+                    </div>
+                    <div class="time-item">
+                        <div class="time-node"></div>
+                        <div class="time-content">
+                            <span>22:15 HRS</span>
+                            <p>Baile</p>
+                        </div>
+                    </div>
+                    <div class="time-item">
+                        <div class="time-node"></div>
+                        <div class="time-content">
+                            <span>02:00 - 05:00 HRS</span>
+                            <p>After</p>
+                        </div>
+                    </div>
+                    <div class="time-item">
+                        <div class="time-node"></div>
+                        <div class="time-content">
+                            <span>05:00 HRS</span>
+                            <p>Fin</p>
+                        </div>
+                    </div>
+                    <div class="time-item">
+                        <div class="time-node"></div>
+                        <div class="time-content">
+                            <span>05:00 - 06:00 HRS</span>
+                            <p>Desalojo</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- MENÚ -->
+            <section class="menu-section reveal-node">
+                <h2 class="section-title">Menú</h2>
+
+                <div class="menu-category">
+                    <h4>Menú Principal</h4>
+                    
+                    <div class="dish">
+                        <span>PRIMER TIEMPO</span>
+                        <p>Ensalada de novia</p>
+                    </div>
+                    <div class="dish">
+                        <span>SEGUNDO TIEMPO</span>
+                        <p>Pasta fussilli al pesto de albahaca</p>
+                    </div>
+                    <div class="dish">
+                        <span>PLATO FUERTE</span>
+                        <p>Medallones de cerdo en salsa de mango al chipotle</p>
+                    </div>
+                    <div class="dish">
+                        <span>GUARNICIONES</span>
+                        <p>Papa cambray con paprika y tocino<br>Atadito de verduras con tocino</p>
+                    </div>
+                    <div class="dish">
+                        <span>POSTRE</span>
+                        <p>Fresas flameadas con helado de vainilla y lluvia de nuez caramelizada</p>
+                    </div>
+                </div>
+
+                <div class="menu-category">
+                    <h4>Menú Vegano y Vegetariano</h4>
+                    <div class="dish">
+                        <p>Lasagna de vegetales en salsa de pimiento rojo</p>
+                    </div>
+                </div>
+
+                <div class="menu-category">
+                    <h4>Menú Infantil</h4>
+                    <div class="dish">
+                        <p>Macarrones queso amarillo y crema<br>Papas a la francesa<br>Hamburguesa de res</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- RECOMENDACIONES -->
+            <section class="recs-section reveal-node">
+                <h2 class="section-title">Detalles</h2>
+                <div class="recs-grid">
+                    <div class="rec-card">
+                        <h4>CLIMA Y PROTECCIÓN</h4>
+                        <p>Le sugerimos encarecidamente tomar precauciones e ir abrigados ante el clima del lugar.</p>
+                    </div>
+                    <div class="rec-card">
+                        <h4>ACCESO ÚNICO</h4>
+                        <p>Considere que el recinto cuenta con un solo acceso habilitado para la entrada.</p>
+                    </div>
+                    <div class="rec-card">
+                        <h4>VALET PARKING</h4>
+                        <p>Servicio externo a HC, con costo adicional por auto.</p>
+                    </div>
+                    <div class="rec-card">
+                        <h4>ÁREAS DE FUMAR</h4>
+                        <p>Recordamos que el consumo de tabaco está restringido exclusivamente a las áreas exteriores.</p>
+                    </div>
+                    <div class="rec-card">
+                        <h4>MENÚS ESPECIALES</h4>
+                        <p>Si requiere menú vegano, vegetariano o por alergias, solicítelo directamente con el comité organizador en la selección de mesas.</p>
+                    </div>
+                    <div class="rec-card">
+                        <h4>GUARDARROPA</h4>
+                        <p>No hay servicio de guardarropa. El kit de graduado será entregado en la entrada.</p>
+                    </div>
+                </div>
+            </section>
+
+        </main>
+
+        <footer>
+            <h2 class="accent-title">ACTUARÍA</h2>
+            <p style="color: var(--act-silver); letter-spacing: 4px; font-size: 0.9rem; font-family: 'Inter', sans-serif;">GRADUACIÓN 2026</p>
+        </footer>
+    </div>
+
+    <script>
+        const audio = document.getElementById('gradAudio');
+        const btn = document.getElementById('music-btn');
+
+        function gestionarMusica() {
+            if (audio.paused) {
+                let playPromise = audio.play();
+                if (playPromise !== undefined) {
+                    playPromise.then(() => {
+                        btn.innerHTML = "🔊";
+                    }).catch(error => {
+                        console.log("Interacción bloqueada por el navegador");
+                    });
+                }
+            } else {
+                audio.pause();
+                btn.innerHTML = "🔇";
+            }
+        }
+
+        ['click', 'touchstart'].forEach(evt => {
+            document.body.addEventListener(evt, () => {
+                if (audio.paused) {
+                    audio.play().then(() => {
+                        btn.innerHTML = "🔊";
+                    }).catch(err => console.log("Audio en espera..."));
+                }
+            }, { once: true });
+        });
+    </script>
+</body>
+</html>
