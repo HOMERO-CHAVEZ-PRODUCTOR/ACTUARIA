@@ -452,49 +452,84 @@
                     <div class="time-item">
                         <div class="time-node"></div>
                         <div class="time-content">
-                            <span>20:00 HRS</span>
-                            <p>Recepción</p>
+                            <span>07:00 PM</span>
+                            <p>Recepción / Sax</p>
                         </div>
                     </div>
                     <div class="time-item">
                         <div class="time-node"></div>
                         <div class="time-content">
-                            <span>21:00 HRS</span>
-                            <p>Cena</p>
+                            <span>08:00 PM</span>
+                            <p>Cena / Violín</p>
                         </div>
                     </div>
                     <div class="time-item">
                         <div class="time-node"></div>
                         <div class="time-content">
-                            <span>22:10 HRS</span>
+                            <span>09:05 PM</span>
+                            <p>Palabras</p>
+                        </div>
+                    </div>
+                    <div class="time-item">
+                        <div class="time-node"></div>
+                        <div class="time-content">
+                            <span>09:10 PM</span>
                             <p>Brindis</p>
                         </div>
                     </div>
                     <div class="time-item">
                         <div class="time-node"></div>
                         <div class="time-content">
-                            <span>22:15 HRS</span>
-                            <p>Baile</p>
+                            <span>09:15 PM</span>
+                            <p>Se Abre Pista</p>
                         </div>
                     </div>
                     <div class="time-item">
                         <div class="time-node"></div>
                         <div class="time-content">
-                            <span>02:00 - 05:00 HRS</span>
-                            <p>After</p>
+                            <span>09:30 PM</span>
+                            <p>Cabina de Fotos</p>
                         </div>
                     </div>
                     <div class="time-item">
                         <div class="time-node"></div>
                         <div class="time-content">
-                            <span>05:00 HRS</span>
+                            <span>10:00 PM</span>
+                            <p>Carrito de Shots / Personaje Concepto (Dr Simi y Astronauta)</p>
+                        </div>
+                    </div>
+                    <div class="time-item">
+                        <div class="time-node"></div>
+                        <div class="time-content">
+                            <span>12:00 AM</span>
+                            <p>Tornafiesta (Chilaquiles) / Banda</p>
+                        </div>
+                    </div>
+                    <div class="time-item">
+                        <div class="time-node"></div>
+                        <div class="time-content">
+                            <span>01:00 AM</span>
+                            <p>After / Barra de Bebidas (01:00 AM - 04:00 AM)</p>
+                        </div>
+                    </div>
+                    <div class="time-item">
+                        <div class="time-node"></div>
+                        <div class="time-content">
+                            <span>02:30 AM</span>
+                            <p>Sorpresa Animada (Sopas)</p>
+                        </div>
+                    </div>
+                    <div class="time-item">
+                        <div class="time-node"></div>
+                        <div class="time-content">
+                            <span>04:00 AM</span>
                             <p>Fin</p>
                         </div>
                     </div>
                     <div class="time-item">
                         <div class="time-node"></div>
                         <div class="time-content">
-                            <span>05:00 - 06:00 HRS</span>
+                            <span>04:00 AM - 05:00 AM</span>
                             <p>Desalojo</p>
                         </div>
                     </div>
@@ -588,11 +623,14 @@
 
         function gestionarMusica() {
             if (audio.paused) {
-                audio.play().then(() => {
-                    btn.innerHTML = "🔊";
-                }).catch(error => {
-                    console.log("Interacción bloqueada por el navegador");
-                });
+                let playPromise = audio.play();
+                if (playPromise !== undefined) {
+                    playPromise.then(() => {
+                        btn.innerHTML = "🔊";
+                    }).catch(error => {
+                        console.log("Interacción bloqueada por el navegador");
+                    });
+                }
             } else {
                 audio.pause();
                 btn.innerHTML = "🔇";
