@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>GRADUACIÓN | ACTUARÍA 2026</title>
     
-    <!-- Tipografía Inter para textos generales -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
 
     <style>
@@ -402,11 +401,9 @@
 </head>
 <body>
 
-    <!-- FONDO Y OVERLAY -->
     <div class="bg-image"></div>
     <div class="overlay"></div>
 
-    <!-- PARTICULAS / DESTELLOS PLATEADOS -->
     <div class="disco-particles">
         <div class="particle p1"></div>
         <div class="particle p2"></div>
@@ -415,7 +412,7 @@
         <div class="particle p5"></div>
     </div>
 
-    <audio id="gradAudio" loop preload="auto" playsinline>
+    <audio id="gradAudio" loop preload="auto" playsinline autoplay>
         <source src="musica.mp3" type="audio/mpeg">
     </audio>
     <button id="music-btn" onclick="gestionarMusica()">🔇</button>
@@ -436,14 +433,12 @@
                     <span>18</span> <span>07</span> <span>26</span>
                 </div>
 
-                <!-- APARTADO MISA -->
                 <div class="location-info reveal-node">
                     <h3>MISA</h3>
                     <p>El Ranchito<br>16:00 HRS</p>
                     <a href="https://maps.app.goo.gl/XYLYxGZ2vmq3tSzD7" target="_blank" class="btn-silver">Ver Ubicación</a>
                 </div>
 
-                <!-- APARTADO RECEPCIÓN -->
                 <div class="location-info reveal-node">
                     <h3>RECEPCIÓN</h3>
                     <p>Hacienda El Coecillo<br>Estado de México</p>
@@ -451,7 +446,6 @@
                 </div>
             </section>
 
-            <!-- ITINERARIO -->
             <section class="timeline-section reveal-node">
                 <h2 class="section-title">Itinerario</h2>
                 <div class="timeline-grid">
@@ -507,7 +501,6 @@
                 </div>
             </section>
 
-            <!-- MENÚ -->
             <section class="menu-section reveal-node">
                 <h2 class="section-title">Menú</h2>
 
@@ -551,7 +544,6 @@
                 </div>
             </section>
 
-            <!-- RECOMENDACIONES -->
             <section class="recs-section reveal-node">
                 <h2 class="section-title">Detalles</h2>
                 <div class="recs-grid">
@@ -596,20 +588,27 @@
 
         function gestionarMusica() {
             if (audio.paused) {
-                let playPromise = audio.play();
-                if (playPromise !== undefined) {
-                    playPromise.then(() => {
-                        btn.innerHTML = "🔊";
-                    }).catch(error => {
-                        console.log("Interacción bloqueada por el navegador");
-                    });
-                }
+                audio.play().then(() => {
+                    btn.innerHTML = "🔊";
+                }).catch(error => {
+                    console.log("Interacción bloqueada por el navegador");
+                });
             } else {
                 audio.pause();
                 btn.innerHTML = "🔇";
             }
         }
 
+        // Intento de reproducción automática al cargar la página
+        window.addEventListener('load', () => {
+            audio.play().then(() => {
+                btn.innerHTML = "🔊";
+            }).catch(() => {
+                console.log("Autoplay bloqueado. Esperando clic del usuario.");
+            });
+        });
+
+        // Reproducir música al primer toque en la pantalla (scroll o clic)
         ['click', 'touchstart'].forEach(evt => {
             document.body.addEventListener(evt, () => {
                 if (audio.paused) {
